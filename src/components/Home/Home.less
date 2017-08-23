@@ -1,0 +1,81 @@
+@import "../common.less";
+
+@bottom: 80 * @px;
+
+.home{
+    &-navs{
+        &-item{
+            font-weight: bold;
+            font-size: 30 * @px;
+        }
+    }
+    &-tabs{ }
+    &-list{
+        width: 100%;
+        list-style-type: none;
+        margin-top: 110 * @px;
+        &-item{
+            list-style: none;
+            border-bottom: 10 * @px solid @bgc;
+            background-color: white;
+            padding: 30 * @px;
+            &-con{
+                padding: 0 0 10 * @px;
+                &-title{
+                    font-size: 32 * @px;
+                    font-weight: bold;
+                    line-height: 40 * @px;
+                    padding: 0 0 20 * @px;
+                }
+                &-desc{
+                    font-size: 28 * @px;
+                    line-height: 42 * @px;
+                    padding: 0;
+                }
+            }
+            &-bottom{
+                border-top: 1px solid @bgc;
+                padding: 20 * @px 0 10 * @px;
+                .bottom-item{
+                    color: #969696;
+                    font-size: 28 * @px;
+                    line-height: 28 * @px;
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+                &-time{
+                    float: left;
+                }
+                &-view{
+                    float: right;
+                }
+                &-reply{
+                    margin-left: 20 * @px;
+                    float: right;
+                }
+            }
+        }
+    }
+    &-loading{
+        width: 100%;
+    }
+    &-publish{
+        position: fixed;
+        right: 10%;
+        bottom: 10%;
+        width: 90 * @px;
+        height: 90 * @px;
+        background-color: @theme;
+        border-radius: 50%;
+        &-text{
+            position: absolute;
+            top: 50%;
+            transform: translate(0, -50%);
+            color: white;
+            font-size: 70 * @px;
+            font-weight: bold;
+            text-align: center;
+            width: 100%;
+        }
+    }
+}

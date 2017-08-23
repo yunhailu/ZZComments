@@ -1,0 +1,65 @@
+@import "../common.less";
+
+@bottom: 80 * @px;
+
+.publish{
+    background-color: white;
+    position: absolute;
+    top: 0;  bottom: 0;
+    left: 0;  right: 0;
+    margin-top: 110 * @px;
+    &-container{
+        position: absolute;
+        top: 0;  bottom: @bottom;
+        left: 0;  right: 0;
+        &-items{
+            border-bottom: 1px solid @bgc;
+            padding: 10 * @px 0;
+            &-label{
+                padding: 20 * @px;
+                width: 140 * @px;
+                font-size: 32 * @px;
+                line-height: 46 * @px;
+                display: inline-block;
+                vertical-align: top;
+            }
+            &-text{
+                color: #666;
+                padding: 20 * @px 0;
+                width: 520 * @px;
+                font-size: 30 * @px;
+                line-height: 46 * @px;
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+        &-intro{
+            margin-top: 30 * @px;
+            padding: 30 * @px;
+            &-title{
+                font-size: 32 * @px;
+                font-weight: bold;
+                line-height: 50 * @px;
+            }
+            &-list{
+                margin-top: 20 * @px;
+                font-size: 28 * @px;
+                line-height: 42 * @px;
+            }
+            &-list>li{
+                margin-top: 10 * @px;
+            }
+        }
+    }
+    &-bottom{
+        position: absolute;
+        bottom: 0;
+        left: 0;  right: 0;
+        height: @bottom;
+        border-top: 1px solid @bgc;
+        padding: 15 * @px;
+        &-btn{
+            width: 100%;
+        }
+    }
+}

@@ -1,0 +1,126 @@
+@import "../common.less";
+
+@bottom: 90 * @px;
+
+.detail{
+    &-container{
+        position: absolute;
+        top: 0; bottom: @bottom;
+        right: 0; left: 0;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        &-topic{
+            background-color: white;
+            padding: 30 * @px;
+            &-title{
+                font-size: 34 * @px;
+                font-weight: bold;
+                line-height: 45 * @px;
+                padding: 0 0 20 * @px;
+            }
+            &-desc{
+                font-size: 30 * @px;
+                line-height: 42 * @px;
+                padding: 0;
+            }
+            &-bottom{
+                border-top: 1px solid @bgc;
+                margin-top: 20 * @px;
+                line-height: 24 * @px;
+                padding: 20 * @px 0 0;
+                .item{
+                    color: #969696;
+                    font-size: 26 * @px;
+                    line-height: 26 * @px;
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+                &-view{  }
+                &-replay{ margin-left: 20 * @px; }
+            }
+        }
+        &-comments{
+            margin-top: 20 * @px;
+            &-title{
+                background-color: white;
+                border-bottom: 3 * @px solid @bgc;
+                padding: 30 * @px 20 * @px 20 * @px;
+                font-size: 32 * @px;
+                line-height: 34 * @px;
+                font-weight: bold;
+                text-align: center;
+            }
+            &-list{
+                &-item{
+                    border-bottom: 10 * @px solid @bgc;
+                    background-color: white;
+                    padding: 20 * @px;
+                    &-name{
+                        font-size: 32 * @px;
+                        line-height: 32 * @px;
+                        font-weight: bold;
+                    }
+                    &-reply{
+                        padding: 20 * @px 0 10 * @px;
+                        font-size: 28 * @px;
+                        line-height: 40 * @px;
+                    }
+                    &-bottom{
+                        border-top: 1px solid @bgc;
+                        padding: 20 * @px 0 0;
+                        line-height: 24 * @px;
+                        .item{
+                            color: #969696;
+                            font-size: 26 * @px;
+                            line-height: 26 * @px;
+                            display: inline-block;
+                            vertical-align: middle;
+                        }
+                        &-time{}
+                    }
+                }
+            }
+            &-loading{
+                width: 100%;
+            }
+        }
+    }
+    &-bottom{
+        position: absolute;
+        bottom: 0;
+        right: 0; left: 0;
+        height: @bottom;
+        background-color: white;
+        border-top: 1px solid @bgc;
+        &-input{
+            display: inline-block;
+            vertical-align: middle;
+            height: @bottom;
+            width: 550 * @px;
+            input{
+                height: 60 * @px;
+                margin-top: 15 * @px;
+                margin-left: 20 * @px;
+                font-size: 30 * @px;
+                width: 90%;
+            }
+        }
+        &-btn{
+            position: absolute;
+            right: 0;
+            display: inline-block;
+            vertical-align: middle;
+            height: @bottom;
+            width: 180 * @px;
+            background-color: @theme;
+            &-text{
+                position: absolute;
+                top: 50%;
+                transform: translate(0, -50%);
+                text-align: center;
+                color: white;
+                width: 100%;
+            }
+        }
+    }
+}
