@@ -30,9 +30,9 @@
         </div>
         <div class="detail-bottom">
             <div class="detail-bottom-input">
-                <input type="text" placeholder="输入你想说的内容" />
+                <input type="text" v-model="replyContent" placeholder="输入你想说的内容" />
             </div>
-            <div class="detail-bottom-btn">
+            <div class="detail-bottom-btn" @click="reply">
                 <div class="detail-bottom-btn-text">发送</div>
             </div>
         </div>
@@ -47,7 +47,7 @@
     import Vue from 'vue';
     import { Button } from 'mint-ui';
     import Loading from '../Common/Loading/Loading.vue';
-    import { zzFeedbackAppDetailItem, zzFeedbackAppDetailReplay } from '../../libs/Api';
+    import { zzFeedbackAppDetailItem, zzFeedbackAppDetailReplay, zzFeedbackAppAdd } from '../../libs/Api';
 
     Vue.component(Button.name, Button);
 
@@ -62,6 +62,7 @@
                 readCount: '',
                 replayCount: '',
                 comments: [],
+                replyContent: '',
                 loading: false,
                 noMore: false,
                 msg: 'Welcome to App detail-container!'
@@ -87,6 +88,17 @@
                         this.comments = this.comments.concat(resp.respData);
                         this.pageIndex += 1;
                         return;
+                    }
+                });
+            },
+            reply () {
+                const parId = this.parId;
+                const content = this.replyContent;
+                const feedBackType = 1;
+                zzFeedbackAppAdd({ parId, content, feedBackType }).then(resp => {
+                    this.replyContent = '';
+                    if (resp.respCode == 0) {
+                        window.location.reload();
                     }
                 });
             },
