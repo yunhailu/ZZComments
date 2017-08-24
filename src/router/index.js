@@ -10,7 +10,7 @@ Vue.use(Router);
 export default new Router({
     routes: [
         {
-            path: '/detail/:id',
+            path: '/detail/:parId',
             name: 'detail',
             component: Detail
         }, {

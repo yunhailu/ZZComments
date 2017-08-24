@@ -3,17 +3,17 @@
         <div class="detail-container">
             <div class="detail-container-topic">
                 <div class="detail-container-topic-title">{{title}}</div>
-                <div class="detail-container-topic-desc">{{desc}}</div>
+                <div class="detail-container-topic-desc">{{content}}</div>
                 <div class="detail-container-topic-bottom">
-                    <span class="item detail-container-topic-bottom-view">浏览: 29</span>
-                    <span class="item detail-container-topic-bottom-replay">回复: 5</span>
+                    <span class="item detail-container-topic-bottom-view">浏览: {{readCount}}</span>
+                    <span class="item detail-container-topic-bottom-replay">回复: {{replayCount}}</span>
                 </div>
             </div>
             <div class="detail-container-comments">
-                <div class="detail-container-comments-title">65个回帖</div>
+                <div class="detail-container-comments-title">{{replayCount}}个回帖</div>
                 <ul class="detail-container-comments-list"
                     v-infinite-scroll="loadMore"
-                    infinite-scroll-disabled="loading"
+                    infinite-scroll-disabled="loading && noMore"
                     infinite-scroll-distance="10">
                     <li class="detail-container-comments-list-item" v-for="(comment, index) in comments">
                         <div class="detail-container-comments-list-item-name">{{ index + 1 }}楼</div>
@@ -46,8 +46,8 @@
 <script>
     import Vue from 'vue';
     import { Button } from 'mint-ui';
-    import resp from './data';
     import Loading from '../Common/Loading/Loading.vue';
+    import { zzFeedbackAppDetailItem, zzFeedbackAppDetailReplay } from '../../libs/Api';
 
     Vue.component(Button.name, Button);
 
@@ -55,34 +55,54 @@
         name: 'detail-container',
         data () {
             return {
+                parId: this.$route.params.parId,
+                pageIndex: 0,
                 title: '',
-                desc: '',
+                content: '',
+                readCount: '',
+                replayCount: '',
                 comments: [],
                 loading: false,
+                noMore: false,
                 msg: 'Welcome to App detail-container!'
             };
         },
         methods: {
             loadMore () {
-                this.loading = true;
-                setTimeout(() => {
-                    let data = resp.comments;
-                    for (let i = 1, len = data.length; i <= len; i++) {
-                        this.comments = this.comments.concat(data);
-                    }
-                    this.loading = false;
-                }, 1500);
+                const parId = this.parId;
+                const pageIndex = this.pageIndex;
+                if (!this.noMore) {
+                    this.getComments(parId, pageIndex);
+                }
             },
-            getDetail (id) {
-                console.log(id);
-                const data = resp;
-                this.title = data.title;
-                this.desc = data.desc;
-                this.comments = data.comments;
+            getComments (parId, pageIndex) {
+                this.loading = true;
+                return zzFeedbackAppDetailReplay({ parId, pageIndex }).then(resp => {
+                    if (resp.respCode == 0 && resp.respData) {
+                        this.loading = false;
+                        if (resp.respData.length == 0) {
+                            this.noMore = true;
+                            return;
+                        }
+                        this.comments = this.comments.concat(resp.respData);
+                        this.pageIndex += 1;
+                        return;
+                    }
+                });
+            },
+            getDetail (parId) {
+                return zzFeedbackAppDetailItem({ parId }).then(resp => {
+                    if (resp.respCode == 0 && resp.respData) {
+                        this.title = resp.respData.title;
+                        this.content = resp.respData.content;
+                        this.readCount = resp.respData.readCount;
+                        this.replayCount = resp.respData.replayCount;
+                    }
+                });
             },
             init () {
-                const id = this.$route.params.id;
-                this.getDetail(id);
+                const parId = this.parId;
+                this.getDetail(parId);
             }
         },
         mounted () {
