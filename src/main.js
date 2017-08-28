@@ -7,6 +7,7 @@ import Resource from 'vue-resource';
 import App from './App';
 import router from './router';
 import flexible from './libs/flexible';
+import store from './store';
 
 const Application = {
     launch () {
@@ -18,13 +19,14 @@ const Application = {
         Vue.use(Resource);
 
         Vue.http.options.xhr = { withCredentials: true };
-        // Vue.http.options.root = 'https://zhuan.58.com/crmentry';
-        Vue.http.options.root = 'http://10.252.218.10:3000';
+        Vue.http.options.root = 'https://zhuan.58.com/crmentry';
+        // Vue.http.options.root = 'http://10.252.218.10:3000';
 
         /* eslint-disable no-new */
         new Vue({
             el: '#app',
             router,
+            store,
             template: '<App/>',
             components: { App }
         });

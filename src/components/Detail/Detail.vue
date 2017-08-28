@@ -15,7 +15,7 @@
                     v-infinite-scroll="loadMore"
                     infinite-scroll-disabled="loading && noMore"
                     infinite-scroll-distance="10">
-                    <li class="detail-container-comments-list-item" v-for="(comment, index) in comments">
+                    <li class="detail-container-comments-list-item" @click="willRepay(comment, index)" v-for="(comment, index) in comments">
                         <div class="detail-container-comments-list-item-name">{{ index + 1 }}楼</div>
                         <div class="detail-container-comments-list-item-reply">{{comment.content}}</div>
                         <div class="detail-container-comments-list-item-bottom">
@@ -76,11 +76,14 @@
                     this.getComments(parId, pageIndex);
                 }
             },
-            getComments (parId, pageIndex) {
+            willRepay (comment, index) {
+                this.replyContent = `【回复${index + 1}楼: 】`;
+            },
+            getComments (parId, pageindex) {
                 this.loading = true;
-                return zzFeedbackAppDetailReplay({ parId, pageIndex }).then(resp => {
+                return zzFeedbackAppDetailReplay({ parId, pageindex }).then(resp => {
+                    this.loading = false;
                     if (resp.respCode == 0 && resp.respData) {
-                        this.loading = false;
                         if (resp.respData.length == 0) {
                             this.noMore = true;
                             return;

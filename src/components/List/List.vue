@@ -1,5 +1,6 @@
 <template>
     <div class="home">
+        <header-tabs :tabindex="tabIndex"></header-tabs>
         <ul class="home-list" v-infinite-scroll="loadMore"
             infinite-scroll-disabled="loading && noMore"
             infinite-scroll-distance="10">
@@ -44,6 +45,7 @@
         name: 'home',
         data () {
             return {
+                tabIndex: '1',
                 selected: '1',
                 loading: false,
                 noMore: false,
@@ -67,11 +69,11 @@
                     }
                 }
             },
-            getCommentsList (pageIndex) {
-                return zzFeedbackAppPage({ pageIndex }).then(resp => {
+            getCommentsList (pageindex) {
+                return zzFeedbackAppPage({ pageindex }).then(resp => {
                     console.log(resp);
+                    this.loading = false;
                     if (resp.respCode == 0) {
-                        this.loading = false;
                         if (resp.respData.length == 0) {
                             this.noMore = true;
                             return;
@@ -83,6 +85,15 @@
                 });
             }
         },
-        components: { Loading, HeaderTabs }
+        components: { Loading, HeaderTabs },
+        beforeRouteEnter (to, from, next) {
+            next(vm => {
+                console.log(to);
+                if (to.name == 'list') {
+//                    vm.$store.dispatch('changeTabIndex', '1');
+                    vm.tabIndex = '1';
+                }
+            });
+        }
     };
 </script>

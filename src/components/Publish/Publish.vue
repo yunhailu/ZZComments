@@ -1,6 +1,6 @@
 <template>
     <div class="publish">
-        <!--<header-tabs></header-tabs>-->
+        <header-tabs :tabindex="tabIndex"></header-tabs>
         <div class="publish-container">
             <div class="publish-container-items">
                 <div class="publish-container-items-label">标题:</div>
@@ -40,6 +40,7 @@
         data () {
             return {
                 submiting: false,
+                tabIndex: '2',
                 content: '',
                 title: '',
                 intros: [
@@ -59,7 +60,7 @@
                 zzFeedbackAppAdd({ feedBackType, title, content }).then(resp => {
                     if (resp.respCode == 0) {
                         let instance = Toast({
-                            position: 'middle',
+                            position: 'bottom',
                             message: '提交成功'
                         });
                         setTimeout(() => {
@@ -70,11 +71,21 @@
                         this.title = '';
                         this.content = '';
                         this.submiting = false;
-//                        this.$router.go(-1);
+                        this.$router.go(-1);
+//                        this.$router.replace({ name: 'list' });
                     }
                 });
             }
         },
-        components: { HeaderTabs }
+        components: { HeaderTabs },
+        beforeRouteEnter (to, from, next) {
+            next(vm => {
+                console.log(to);
+                if (to.name == 'publish') {
+                    vm.$store.dispatch('changeTabIndex', '2');
+                    vm.tabIndex = '2';
+                }
+            });
+        }
     };
 </script>

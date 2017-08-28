@@ -12,22 +12,23 @@
 </style>
 
 <script>
-    import _ from 'underscore';
+//    import _ from 'underscore';
     import Vue from 'vue';
     import { Navbar, TabItem } from 'mint-ui';
-    import Config from './config';
+//    import Config from './config';
 
     Vue.component(Navbar.name, Navbar);
     Vue.component(TabItem.name, TabItem);
 
     export default {
         name: 'header',
-        props: [],
+        props: ['tabindex'],
         data () {
-            const routeName = this.$route.name;
-            const currentObj = _.find(Config.data, item => (item.router == routeName));
+//            const routeName = this.$route.name;
+//            const currentObj = _.find(Config.data, item => (item.router == routeName));
             return {
-                selected: currentObj.index
+//                selected: currentObj.index
+                selected: this.tabindex
             };
         },
         methods: {
@@ -38,6 +39,12 @@
                 const path = ['list', 'publish'];
                 this.$router.push({ name: path[val - 1] });
             }
+        },
+        beforeRouteEnter (to, from, next) {
+            console.log('[header]', to);
+            next(vm => {
+                console.log(to);
+            });
         }
     };
 </script>

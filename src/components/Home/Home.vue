@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <header-tabs></header-tabs>
+        <!--<header-tabs :index="tabIndex"></header-tabs>-->
         <transition name="fade">
             <router-view></router-view>
         </transition>
@@ -28,12 +28,19 @@
         name: 'home',
         data () {
             return {
+                tabIndex: '1',
                 msg: 'Welcome to App Home!'
             };
         },
         methods: {
 
         },
-        components: { Loading, HeaderTabs }
+        components: { Loading, HeaderTabs },
+        beforeRouteEnter (to, from, next) {
+            next(vm => {
+                console.log(to, vm.$store.getters.tabIndex);
+                vm.tabIndex = vm.$store.getters.tabIndex;
+            });
+        }
     };
 </script>
