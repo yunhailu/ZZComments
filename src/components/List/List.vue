@@ -70,7 +70,6 @@
             },
             getCommentsList (pageindex) {
                 return zzFeedbackAppPage({ pageindex }).then(resp => {
-                    console.log(resp);
                     this.loading = false;
                     if (resp.respCode == 0) {
                         if (resp.respData.length == 0) {
@@ -87,7 +86,6 @@
         components: { Loading, HeaderTabs },
         beforeRouteEnter (to, from, next) {
             next(vm => {
-                console.log(to);
                 if (to.name == 'list') {
 //                    vm.$store.dispatch('changeTabIndex', '1');
                     vm.tabIndex = '1';

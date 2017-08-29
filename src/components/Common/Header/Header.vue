@@ -36,12 +36,6 @@
                 const route = _.find(Config.data, route => (route.index == val));
                 this.$router.push({ name: route.router });
             }
-        },
-        beforeRouteEnter (to, from, next) {
-            console.log('[header]', to);
-            next(vm => {
-                console.log(to);
-            });
         }
     };
 </script>

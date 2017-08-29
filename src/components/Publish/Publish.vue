@@ -80,7 +80,6 @@
         components: { HeaderTabs },
         beforeRouteEnter (to, from, next) {
             next(vm => {
-                console.log(to);
                 if (to.name == 'publish') {
 //                    vm.$store.dispatch('changeTabIndex', '2');
                     vm.tabIndex = '2';
