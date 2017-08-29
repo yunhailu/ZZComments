@@ -77,7 +77,7 @@
                 }
             },
             willRepay (comment, index) {
-                this.replyContent = `【回复${index + 1}楼: 】`;
+                this.replyContent = `【回复${index + 1}楼】: `;
             },
             getComments (parId, pageindex) {
                 this.loading = true;

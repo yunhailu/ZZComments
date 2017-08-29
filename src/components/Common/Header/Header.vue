@@ -1,8 +1,7 @@
 <template>
     <div class="header">
         <mt-navbar v-model="selected" :fixed="true" class="header-navs">
-            <mt-tab-item id="1" class="header-navs-item">全部话题</mt-tab-item>
-            <mt-tab-item id="2" class="header-navs-item">我要发布</mt-tab-item>
+            <mt-tab-item :id="tab.index" class="header-navs-item" v-for="tab in tabs" :key="tab.index">{{tab.name}}</mt-tab-item>
         </mt-navbar>
     </div>
 </template>
@@ -12,10 +11,10 @@
 </style>
 
 <script>
-//    import _ from 'underscore';
     import Vue from 'vue';
+    import _ from 'underscore';
     import { Navbar, TabItem } from 'mint-ui';
-//    import Config from './config';
+    import Config from './config';
 
     Vue.component(Navbar.name, Navbar);
     Vue.component(TabItem.name, TabItem);
@@ -24,11 +23,9 @@
         name: 'header',
         props: ['tabindex'],
         data () {
-//            const routeName = this.$route.name;
-//            const currentObj = _.find(Config.data, item => (item.router == routeName));
             return {
-//                selected: currentObj.index
-                selected: this.tabindex
+                selected: this.tabindex,
+                tabs: Config.data
             };
         },
         methods: {
@@ -36,8 +33,8 @@
         },
         watch: {
             selected (val, old) {
-                const path = ['list', 'publish'];
-                this.$router.push({ name: path[val - 1] });
+                const route = _.find(Config.data, route => (route.index == val));
+                this.$router.push({ name: route.router });
             }
         },
         beforeRouteEnter (to, from, next) {
@@ -48,3 +45,4 @@
         }
     };
 </script>
+

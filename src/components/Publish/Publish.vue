@@ -82,7 +82,7 @@
             next(vm => {
                 console.log(to);
                 if (to.name == 'publish') {
-                    vm.$store.dispatch('changeTabIndex', '2');
+//                    vm.$store.dispatch('changeTabIndex', '2');
                     vm.tabIndex = '2';
                 }
             });

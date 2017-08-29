@@ -32,7 +32,6 @@
     import { Button, Spinner, InfiniteScroll, Navbar, TabItem } from 'mint-ui';
     import Loading from '../Common/Loading/Loading.vue';
     import HeaderTabs from '../Common/Header/Header.vue';
-//    import resp from './data';
     import { zzFeedbackAppPage } from '../../libs/Api';
 
     Vue.component(Spinner.name, Spinner);
